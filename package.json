@@ -1,0 +1,12 @@
+{
+  "name": "weexam",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Weexam - Weekly Exam LMS (PWA, offline-first, tanpa dependensi runtime)",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "bun test tests",
+    "build": "bun scripts/build.ts",
+    "dev": "bun scripts/build.ts --watch && bunx serve dist -l 5173"
+  }
+}

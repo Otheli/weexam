@@ -1,0 +1,15 @@
+WEEXAM UNTUK WINDOWS
+
+Cara memasang (satu langkah):
+  Klik dua kali  Pasang-Weexam-Windows.bat
+Weexam akan disalin ke folder aplikasi kamu, dibuatkan pintasan di Desktop dan menu Start,
+lalu terbuka sebagai jendela aplikasi (tanpa bilah alamat). Tidak butuh internet.
+
+Syarat: Microsoft Edge atau Google Chrome (Edge sudah ada di Windows 10/11).
+
+Catatan penting
+- Data tersimpan di profil peramban pada komputer ini. Gunakan Pengaturan > Cadangkan secara berkala.
+- Jika Windows menampilkan peringatan SmartScreen, pilih "More info" lalu "Run anyway".
+- Jika pemasangan gagal: buka berkas Weexam-Offline.html langsung dengan Edge atau Chrome.
+- Pembaruan: jalankan Pasang-Weexam-Windows.bat dari paket yang lebih baru. Data tidak terhapus.
+- Menghapus: hapus folder  %LOCALAPPDATA%\Weexam  dan pintasan Weexam di Desktop.
