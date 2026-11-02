@@ -15,7 +15,7 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   const req = e.request;
   const url = new URL(req.url);
-  if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.includes('/downloads/') || url.pathname.endsWith('/config.js')) return;
+  if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.includes('/downloads/')) return;
   e.respondWith(
     caches.match(req, { ignoreSearch: true }).then(
       (hit) =>

@@ -6,8 +6,6 @@ import { fmt } from '../time';
 import { $, action, html, icon, raw, type Raw } from '../ui/dom';
 import { confirmDialog, toast } from '../ui/kit';
 import { loadSample } from '../seed';
-import { accountCard } from './masuk';
-import { cloudConfig, session } from '../cloud';
 import { LETTERS } from '../grading';
 
 function installCard(): Raw {
@@ -36,7 +34,6 @@ export const pengaturanPage: Page = {
     const st = s.settings;
     const perm = notificationSupport();
     return html`<div class="wrap narrow settings">
-      ${accountCard()}
       ${installCard()}
       <section class="set-s"><h3>Notifikasi dan pengingat</h3>
         <label class="check"><input type="checkbox" data-change="set-os" ${st.osNotifications && perm === 'granted' ? raw('checked') : ''} ${perm === 'unsupported' ? raw('disabled') : ''} /><span>Notifikasi perangkat${perm === 'denied' ? ' (diblokir di peramban)' : ''}</span></label>
@@ -52,10 +49,10 @@ export const pengaturanPage: Page = {
         <label class="fld"><span>Durasi (menit)</span><input type="number" min="1" data-input="set-def" data-k="defaultDuration" data-n="1" value="${st.defaultDuration}" /></label>
         <label class="fld"><span>Potongan susulan (%)</span><input type="number" min="0" max="100" data-input="set-def" data-k="defaultPenalty" data-n="1" value="${st.defaultPenalty}" /></label></div></section>
       <section class="set-s"><h3>Data</h3>
-        <p class="muted">${cloudConfig() ? 'Cadangan manual tetap berguna sebagai salinan tambahan. ' : 'Semua data tersimpan di perangkat ini. '}${st.lastBackupAt ? `Cadangan terakhir ${fmt.dateTime(st.lastBackupAt)}.` : 'Belum pernah dicadangkan.'}</p>
+        <p class="muted">Semua data tersimpan di perangkat ini. ${st.lastBackupAt ? `Cadangan terakhir ${fmt.dateTime(st.lastBackupAt)}.` : 'Belum pernah dicadangkan.'}</p>
         <div class="dl"><button class="btn" data-act="backup">${icon('download', 18)} Cadangkan</button><label class="btn">${icon('upload', 18)} Pulihkan<input type="file" accept=".json,application/json" hidden data-change="restore" /></label>
         <button class="btn" data-act="sample">Muat data contoh</button><button class="btn danger-o" data-act="reset">Hapus semua data</button></div></section>
-      <p class="hint">Weexam 1.0 · ${cloudConfig() ? 'versi web dengan sinkron akun.' : 'berjalan sepenuhnya di perangkatmu, tanpa akun dan tanpa server.'}</p>
+      <p class="hint">Weexam 1.0 · berjalan sepenuhnya di perangkatmu, tanpa akun dan tanpa server.</p>
     </div>`;
   },
   mount() {
@@ -123,7 +120,7 @@ action('restore', async (el) => {
   }
 });
 action('reset', async () => {
-  const ok = await confirmDialog({ title: 'Hapus semua data?', message: cloudConfig() && session() ? 'Topik, ujian, jawaban, dan catatan dihapus permanen dari perangkat ini dan dari akunmu. Cadangkan dulu bila perlu.' : 'Topik, ujian, jawaban, dan catatan dihapus permanen dari perangkat ini. Cadangkan dulu bila perlu.', confirm: 'Hapus semua', danger: true });
+  const ok = await confirmDialog({ title: 'Hapus semua data?', message: 'Topik, ujian, jawaban, dan catatan dihapus permanen dari perangkat ini. Cadangkan dulu bila perlu.', confirm: 'Hapus semua', danger: true });
   if (!ok) return;
   await resetAll();
   location.hash = '#/dashboard';

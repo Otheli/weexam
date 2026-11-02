@@ -25,5 +25,5 @@ LMS untuk ujian mingguan per topik. PWA offline-first, tanpa dependensi runtime,
 - **Ujian**: berkas soal selalu tampil di layar ujian; peringatan bila belum dibuka (juga saat kirim). Setelah ujian: halaman *Soal & Jawaban* + unduh HTML + simpan ke Evaluasi (berkas soal ikut tersalin).
 - **Bobot ujian** per ujian (tab Penilaian), pengingat cadangan mingguan, cadangan penulisan darurat saat tab ditutup.
 
-## Versi web + akun
-Lihat `PANDUAN-WEB.md`. Kode: `src/cloud.ts` (auth, sinkron, berkas), `src/pages/masuk.ts` (layar masuk, akun), `supabase/schema.sql`. Uji: `node scripts/mock-supabase.cjs 5180 dist` lalu `node scripts/cloud.cjs`.
+## Penyimpanan
+Semua data tersimpan di perangkat (IndexedDB). Tidak ada akun, server, atau layanan cloud; gunakan Cadangkan/Pulihkan di Pengaturan untuk memindahkan data antar perangkat.

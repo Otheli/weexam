@@ -38,7 +38,6 @@ const head = (inline: boolean) => `<!doctype html>
 <title>Weexam</title>
 <link rel="icon" href="${inline ? 'data:image/png;base64,' + (existsSync(root + 'public/icons/icon-192.png') ? readFileSync(root + 'public/icons/icon-192.png').toString('base64') : '') : 'icons/icon-192.png'}">
 ${inline ? '' : '<link rel="manifest" href="manifest.webmanifest">\n<link rel="apple-touch-icon" href="icons/icon-192.png">'}
-${inline ? '' : '<script src="config.js"></script>'}
 ${inline ? `<style>${css}</style>` : '<link rel="stylesheet" href="app.css">'}
 </head>
 <body><noscript>Weexam membutuhkan JavaScript.</noscript>

@@ -6,8 +6,6 @@ import { flush, getState, initStore, mutate, submitAttempt, subscribe } from './
 import { clock, fmt, fmtDuration, phaseOf, PHASE_LABEL } from './time';
 import { closeModal, hydrateBlobs, modalOpen, toast } from './ui/kit';
 import { resolvePage } from './pages';
-import { needsLogin, prepareCloud, startSync, setRemoteAppliedHandler } from './cloud';
-import { bindSyncUi, promptNewPassword, showAuth } from './pages/masuk';
 
 let page: Page | null = null;
 let ctx: Ctx;
@@ -37,7 +35,6 @@ function shell(): Raw {
         <a class="brand sm" href="#/dashboard">${LOGO}</a>
         <div class="top-t"><h1 id="page-title"></h1><p id="page-sub" class="muted"></p></div>
         <div class="top-r">
-          <a class="icon-btn sync" id="sync-btn" href="#/pengaturan" hidden>${icon('cloud', 22)}<i></i></a>
           <button class="icon-btn bell" id="bell" data-act="bell" aria-label="Notifikasi" aria-expanded="false">${icon('bell', 22)}<span class="badge" id="bell-n" hidden></span></button>
           <a class="icon-btn only-m" href="#/pengaturan" aria-label="Pengaturan">${icon('settings', 22)}</a>
         </div>
@@ -248,8 +245,6 @@ function tick() {
 
 // ------------------------------------------------------------ Boot
 export async function boot() {
-  const auth = await prepareCloud();
-  if (needsLogin()) return showAuth(auth === 'error' ? 'Tautan masuk tidak valid atau sudah kedaluwarsa. Coba lagi.' : undefined);
   await initStore();
   document.body.innerHTML = shell().s;
   installDelegation();
@@ -273,10 +268,6 @@ export async function boot() {
   lastSig = signature();
   notifyNew();
   setInterval(tick, 1000);
-  bindSyncUi();
-  setRemoteAppliedHandler(() => toast('Data diperbarui dari akunmu.'));
-  startSync();
-  if (auth === 'recovery') promptNewPassword();
   void flush;
   void esc;
   void fmt;
